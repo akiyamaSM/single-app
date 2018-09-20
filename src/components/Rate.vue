@@ -1,9 +1,9 @@
 <template>
 <div class="rating">
     <ul class="list">
-      <li :key="star" v-for="star in maxStars_" :class="{ 'active': star <= stars_ }" class="star" @click="rate(star)">{{ star }}</li>
+      <li :key="star" v-for="star in maxstars" :class="{ 'active': star <= stars }" class="star" @click="rate(star)">{{ star }}</li>
     </ul>
-    <span>{{ stars_ }} of {{ maxStars_ }}</span>
+    <span>{{ stars }} of {{ maxstars }}</span>
   </div>
 </template>
 
@@ -22,15 +22,9 @@
 				default : 5
 			}
 		},
-		data(){
-			return {
-				stars_ : this.stars,
-				maxStars_ : this.maxstars
-			}
-		},
 		methods: {
 			rate(star){
-				this.stars_ = star;
+				this.stars = star;
 			}
 		}
 	}
