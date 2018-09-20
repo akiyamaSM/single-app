@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Rate :stars="2" :maxstars="5" />
+    <Rate :stars="1" :maxstars="5" />
   </div>
 </template>
 
