@@ -2,8 +2,16 @@
 <div class="rating">
     <input type="hidden" :name="name" :id="id" v-model="rating_value" />
     <ul class="list">
-      <li :key="star" v-for="star in maxstars" :class="{ 'active': star <= rating_value }" class="star" @click="rate(star)" :style="[star <= rating_value? {color : star_color} : {}]">
-        <v-icon scale="2" :name="star <= rating_value ? 'star' : 'star-o'"/>
+      <li
+              v-for="(star,i) in maxstars"
+              @mouseover="highlightStars(i)"
+              :key="star"
+              :class="{ 'active': star <= rating_value }"
+              class="star"
+              @click="rate(star)"
+              :style="generateStyle(star,i)"
+      >
+        <v-icon scale="2" :name="star <= rating_value ? 'star' : 'star-o'"  />
       </li>
     </ul>
   </div>
@@ -20,6 +28,7 @@
           return {
               rating_value : this.stars,
               star_color : this.color,
+              star_index : -1
           }
         },
         components: {
@@ -50,7 +59,13 @@
 		methods: {
 			rate(star){
 				this.rating_value = star
-			}
+			},
+            highlightStars(index){
+                this.star_index = index;
+            },
+            generateStyle(star,i) {
+                return [star <= this.rating_value ? {color : this.star_color} : {}, this.star_index >= i ? {color : this.star_color} : {}];
+            }
 		}
 	}
 </script>
@@ -75,12 +90,5 @@
 
 	.star:hover ~ .star:not(.active) {
 		color: inherit;
-	}
-    .list:hover .star {
-        color: #f3d23e;
-    }
-
-	.active {
-		color: #f3d23e;
 	}
 </style>

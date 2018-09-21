@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Rate :stars="2" :maxstars="5" name="my-field" id="my-id-field" color="#f3d23e" />
+    <Rate :stars="2" :maxstars="5" name="my-field" id="my-id-field" color="#20152f" />
   </div>
 </template>
 
