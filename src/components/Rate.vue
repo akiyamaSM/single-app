@@ -2,8 +2,8 @@
 <div class="rating">
     <input type="hidden" :name="name" :id="id" v-model="rating_value" />
     <ul class="list">
-      <li :key="star" v-for="star in maxstars" :class="{ 'active': star <= stars }" class="star" @click="rate(star)">
-        <v-icon scale="2" :name="star <= stars ? 'star' : 'star-o'"/>
+      <li :key="star" v-for="star in maxstars" :class="{ 'active': star <= rating_value }" class="star" @click="rate(star)">
+        <v-icon scale="2" :name="star <= rating_value ? 'star' : 'star-o'"/>
       </li>
     </ul>
   </div>
@@ -18,13 +18,21 @@
 	export default {
         data(){
           return {
-              rating_value : this.stars
+              rating_value : this.stars,
           }
         },
         components: {
 			'v-icon': Icon
         },
 		props : {
+            color:{
+                type: String,
+                default: '#f3d23e'
+            },
+            hover:{
+                type: String,
+                default: '#f3d23e'
+            },
             id:{
                 type: String,
                 required: true
@@ -44,11 +52,7 @@
 		},
 		methods: {
 			rate(star){
-				this.stars = star;
-				this.rating_value = this.stars
-			},
-			isSelected(star){
-				return star <= this.stars;
+				this.rating_value = star
 			}
 		}
 	}
@@ -67,10 +71,6 @@
 		list-style-type: none;
 	}
 
-	.list:hover .star {
-		color: #f3d23e;
-	}
-
 	.star {
 		display: inline-block;
 		cursor: pointer;
@@ -79,6 +79,9 @@
 	.star:hover ~ .star:not(.active) {
 		color: inherit;
 	}
+    .list:hover .star {
+        color: #f3d23e;
+    }
 
 	.active {
 		color: #f3d23e;
