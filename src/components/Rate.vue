@@ -2,7 +2,7 @@
 <div class="rating">
     <input type="hidden" :name="name" :id="id" v-model="rating_value" />
     <ul class="list">
-      <li :key="star" v-for="star in maxstars" :class="{ 'active': star <= rating_value }" class="star" @click="rate(star)">
+      <li :key="star" v-for="star in maxstars" :class="{ 'active': star <= rating_value }" class="star" @click="rate(star)" :style="[star <= rating_value? {color : star_color} : {}]">
         <v-icon scale="2" :name="star <= rating_value ? 'star' : 'star-o'"/>
       </li>
     </ul>
@@ -19,6 +19,7 @@
         data(){
           return {
               rating_value : this.stars,
+              star_color : this.color,
           }
         },
         components: {
@@ -26,10 +27,6 @@
         },
 		props : {
             color:{
-                type: String,
-                default: '#f3d23e'
-            },
-            hover:{
                 type: String,
                 default: '#f3d23e'
             },
