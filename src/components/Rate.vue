@@ -1,11 +1,11 @@
 <template>
 <div class="rating">
+    <input type="hidden" :name="name" :id="id" v-model="rating_value" />
     <ul class="list">
       <li :key="star" v-for="star in maxstars" :class="{ 'active': star <= stars }" class="star" @click="rate(star)">
-  		<v-icon scale="2" :name="star <= stars ? 'star' : 'star-o'"/>	
+        <v-icon scale="2" :name="star <= stars ? 'star' : 'star-o'"/>
       </li>
     </ul>
-    <span>{{ stars }} of {{ maxstars }}</span>
   </div>
 </template>
 
@@ -13,14 +13,26 @@
 
   import 'vue-awesome/icons/star'
   import 'vue-awesome/icons/star-o'
-
   import Icon from 'vue-awesome/components/Icon'
   
 	export default {
-		components: {
+        data(){
+          return {
+              rating_value : this.stars
+          }
+        },
+        components: {
 			'v-icon': Icon
-	    },
+        },
 		props : {
+            id:{
+                type: String,
+                required: true
+            },
+            name: {
+                type: String,
+                required: true,
+            },
 			stars: {
 				type: Number,
 				required: true
@@ -33,6 +45,7 @@
 		methods: {
 			rate(star){
 				this.stars = star;
+				this.rating_value = this.stars
 			},
 			isSelected(star){
 				return star <= this.stars;
